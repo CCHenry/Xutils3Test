@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -26,7 +27,7 @@ import java.util.regex.Pattern;
 /**
  * Created by henryzheng on 2016/9/27.
  */
-public class ListImageAdapt extends BaseAdapter {
+public class ListImageAdapt extends BaseAdapter implements AdapterView.OnItemClickListener{
     private final ImageOptions _imageOptions;
     Context _context;
     List<String> _urls;
@@ -111,6 +112,11 @@ public class ListImageAdapt extends BaseAdapter {
         holder.pb.setProgress(0);
         x.image().bind(holder.iv, _urls.get(position), _imageOptions, new CustomBitmapLoadCallBack(holder));
         return convertView;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        
     }
 
     private class ImageItemHolder {

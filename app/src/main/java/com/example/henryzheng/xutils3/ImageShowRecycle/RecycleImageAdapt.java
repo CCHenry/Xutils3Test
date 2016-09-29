@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.henryzheng.xutils3.BaseActivity;
 import com.example.henryzheng.xutils3.BigImageShowActivity;
 import com.example.henryzheng.xutils3.ImageShowList.ListImageAdapt;
+import com.example.henryzheng.xutils3.Interface.MyItemClickListener;
 import com.example.henryzheng.xutils3.JumpContans;
 import com.example.henryzheng.xutils3.R;
 
@@ -38,22 +39,23 @@ import java.util.regex.Pattern;
 public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.MyViewHolder> {
     private final ImageOptions _imageOptions;
     Context _context;
-    List<String> _urls;
+    List<String> urls;
     LayoutInflater _mLayoutInflater;
+    MyItemClickListener myItemClickListener;
 
     public RecycleImageAdapt(Context context) {
         _context = context;
         _mLayoutInflater = LayoutInflater.from(context);
-        _urls = new ArrayList<>();
+        urls = new ArrayList<>();
         _imageOptions = new ImageOptions.Builder()
-                .setSize(DensityUtil.dip2px(100), DensityUtil.dip2px(100))
+                .setSize(DensityUtil.dip2px(200), DensityUtil.dip2px(200))
                 .setRadius(DensityUtil.dip2px(5))
                 // 如果ImageView的大小不是定义为wrap_content, 不要crop.
                 .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
                 // 加载中或错误图片的ScaleType
 //                .setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
 //                .setCircular(true)
-                .setImageScaleType(ImageView.ScaleType.FIT_XY)
+                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
                 .setLoadingDrawableId(R.mipmap.ic_launcher)
                 .setFailureDrawableId(R.mipmap.ic_launcher)
                 .setFadeIn(true)
@@ -61,53 +63,49 @@ public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.My
     }
 
     public void addSrc(List<String> datas) {
-        this._urls.addAll(datas);
-    }
-
-    public void notifiy() {
-        notifyDataSetChanged();
+        this.urls.addAll(datas);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = _mLayoutInflater.inflate(R.layout.layout_image_recycle_item, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
+        MyViewHolder holder = new MyViewHolder(view, myItemClickListener);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        x.image().bind(holder.iv, _urls.get(position), _imageOptions, new RecycleImageAdapt.CustomBitmapLoadCallBack(holder));
+        x.image().bind(holder.iv, urls.get(position), _imageOptions, new RecycleImageAdapt.CustomBitmapLoadCallBack(holder));
 //        if (holder.iv.getWidth() > holder.iv.getHeight())
-        holder.iv.setLayoutParams(new LinearLayout.LayoutParams(((BaseActivity) _context).getWidth() / 4, ((BaseActivity) _context).getWidth() / 4));
-//        else
-//            holder.iv.setLayoutParams(new LinearLayout.LayoutParams(((BaseActivity) _context).getWidth() / 4, ((BaseActivity) _context).getWidth() / 4));
+        int width=((BaseActivity) _context).getWidth() / 3;
+//        int height=(int)(width*3/4+Math.random()*(width*7/4-width*3/4+1));
+        holder.iv.setLayoutParams(new LinearLayout.LayoutParams(width, width));
 
-        holder.iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(_context, BigImageShowActivity.class);
-                intent.putExtra(JumpContans.url, (String) _urls.get(position));
-                _context.startActivity(intent);
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return _urls.size();
+        return urls.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView iv;
         ProgressBar pb;
+        MyItemClickListener _mItemClickListener;
 
-        public MyViewHolder(View view) {
+        public MyViewHolder(final View view, MyItemClickListener _mItemClickListener) {
             super(view);
             iv = (ImageView) view.findViewById(R.id.iv);
             pb = (ProgressBar) view.findViewById(R.id.pb);
+            view.setOnClickListener(this);
+            this._mItemClickListener = _mItemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            _mItemClickListener.onItemClick(v, getPosition());
         }
     }
 
@@ -159,81 +157,21 @@ public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.My
         }
     }
 
-    public void loadImgList(String url) {
-        x.http().get(new RequestParams(url), new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                addSrc(getImgSrcList(result));
-                notifyDataSetChanged();//通知listview更新数据
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+    public void loadImgList(List<String> urls) {
+        addSrc(urls);
+        notifyDataSetChanged();//通知listview更新数据
     }
 
-    public void loadImgList2(String url) {
-        _urls.clear();
-        x.http().get(new RequestParams(url), new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                addSrc(getImgSrcList2(result));
-                notifyDataSetChanged();//通知listview更新数据
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+    public void setOnItemClickListener(MyItemClickListener listener) {
+        this.myItemClickListener = listener;
     }
 
-    public static List<String> getImgSrcList(String htmlStr) {
-        List<String> pics = new ArrayList<String>();
-
-        String regEx_img = "<img.*?src=\"http://(.*?).jpg\""; // 图片链接地址
-        Pattern p_image = Pattern.compile(regEx_img, Pattern.CASE_INSENSITIVE);
-        Matcher m_image = p_image.matcher(htmlStr);
-        while (m_image.find()) {
-            String src = m_image.group(1);
-            if (src.length() < 100) {
-                pics.add("http://" + src + ".jpg");
-                //pics.add("http://f.hiphotos.baidu.com/zhidao/pic/item/2fdda3cc7cd98d104cc21595203fb80e7bec907b.jpg");
-            }
-        }
-        return pics;
+    public void clear() {
+        urls.clear();
     }
 
-    public static List<String> getImgSrcList2(String htmlStr) {
-        String IMGURL_REG = "objURL\":\"(http://).*?((.jpg)|(.jpeg)|(.png)|(.JPEG))";
-
-        Matcher matcher = Pattern.compile(IMGURL_REG).matcher(htmlStr);
-        List<String> listImgUrl = new ArrayList<String>();
-        while (matcher.find()) {
-            listImgUrl.add(matcher.group().replace("objURL\":\"", ""));
-        }
-        return listImgUrl;
+    public List<String> getUrls() {
+        return urls;
     }
 }
