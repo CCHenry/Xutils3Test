@@ -3,6 +3,7 @@ package com.example.henryzheng.xutils3;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 
 import org.xutils.x;
@@ -11,7 +12,7 @@ import org.xutils.x;
 /**
  * Created by henryzheng on 2016/9/27.
  */
-public class BaseActivity extends Activity implements IHandlerListener {
+public class BaseActivity extends FragmentActivity implements IHandlerListener {
     private Display mDisplay;
     public Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {

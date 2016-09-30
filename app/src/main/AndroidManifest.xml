@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name = "android.permission.SET_WALLPAPER"/>
-    <uses-permission android:name = "android.permission.SET_WALLPAPER_HINTS"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
 
     <application
         android:name=".MyApplication"
@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BigImageShowActivity"></activity>
+        <activity android:name=".BigImageShowActivity" />
+        <activity android:name=".ImageTypeActivity"></activity>
     </application>
 
 </manifest>

@@ -1,14 +1,12 @@
-package com.example.henryzheng.xutils3.ImageShowRecycle;
+package com.example.henryzheng.xutils3.ImageSelectType.adapt;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -16,38 +14,34 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.henryzheng.xutils3.BaseActivity;
-import com.example.henryzheng.xutils3.BigImageShowActivity;
-import com.example.henryzheng.xutils3.ImageShowList.ListImageAdapt;
 import com.example.henryzheng.xutils3.Interface.MyItemClickListener;
-import com.example.henryzheng.xutils3.JumpContans;
 import com.example.henryzheng.xutils3.R;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
-import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
-import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 /**
+ * 选择图片类型
  * Created by henryzheng on 2016/9/27.
  */
-public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.MyViewHolder> {
+public class ImageSelectTypeAdapt extends RecyclerView.Adapter<ImageSelectTypeAdapt.MyViewHolder> {
     private final ImageOptions _imageOptions;
     Context _context;
-    List<String> urls;
+
+    List<Map<String,String>> dataList;
     LayoutInflater _mLayoutInflater;
     MyItemClickListener myItemClickListener;
-
-    public RecycleImageAdapt(Context context) {
+    int spanCount=0;
+    public ImageSelectTypeAdapt(Context context,int spanCount) {
         _context = context;
         _mLayoutInflater = LayoutInflater.from(context);
-        urls = new ArrayList<>();
+        dataList=new ArrayList<>();
         _imageOptions = new ImageOptions.Builder()
                 .setSize(DensityUtil.dip2px(200), DensityUtil.dip2px(200))
                 .setRadius(DensityUtil.dip2px(5))
@@ -61,10 +55,11 @@ public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.My
                 .setFailureDrawableId(R.mipmap.ic_launcher)
                 .setFadeIn(true)
                 .build();
+        this.spanCount=spanCount;
     }
 
-    public void addSrc(List<String> datas) {
-        this.urls.addAll(datas);
+    public void addSrc(List<Map<String,String>> dataList) {
+        this.dataList.addAll(dataList);
     }
 
     @Override
@@ -75,31 +70,42 @@ public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        x.image().bind(holder.iv, urls.get(position), _imageOptions, new RecycleImageAdapt.CustomBitmapLoadCallBack(holder));
+        x.image().bind(holder.iv, dataList.get(position).get("url"), _imageOptions, new ImageSelectTypeAdapt.CustomBitmapLoadCallBack(holder));
+        holder.tv.setText( dataList.get(position).get("title"));
 //        if (holder.iv.getWidth() > holder.iv.getHeight())
-        int width=((BaseActivity) _context).getWidth() / 3;
+        int width = ((BaseActivity) _context).getWidth() /spanCount;
 //        int height=(int)(width*3/4+Math.random()*(width*7/4-width*3/4+1));
         holder.iv.setLayoutParams(new RelativeLayout.LayoutParams(width, width));
-
+        ViewTreeObserver vto = holder.iv.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                holder.iv.getHeight();
+                holder.iv.setLayoutParams(new RelativeLayout.LayoutParams(holder.iv.getWidth(), holder.iv.getWidth()));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return urls.size();
+        return dataList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView iv;
         ProgressBar pb;
+        TextView tv;
         MyItemClickListener _mItemClickListener;
 
         public MyViewHolder(final View view, MyItemClickListener _mItemClickListener) {
             super(view);
             iv = (ImageView) view.findViewById(R.id.iv);
             pb = (ProgressBar) view.findViewById(R.id.pb);
+            tv=(TextView )view.findViewById(R.id.tv);
+
             view.setOnClickListener(this);
             this._mItemClickListener = _mItemClickListener;
         }
@@ -158,8 +164,9 @@ public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.My
         }
     }
 
-    public void loadImgList(List<String> urls) {
-        addSrc(urls);
+    public void loadImgList(List<Map<String,String>> dataList) {
+
+        addSrc(dataList);
         notifyDataSetChanged();//通知listview更新数据
     }
 
@@ -169,10 +176,10 @@ public class RecycleImageAdapt extends RecyclerView.Adapter<RecycleImageAdapt.My
     }
 
     public void clear() {
-        urls.clear();
+        dataList.clear();
     }
 
-    public List<String> getUrls() {
-        return urls;
+    public List<Map<String,String>> getUrls() {
+        return dataList;
     }
 }
