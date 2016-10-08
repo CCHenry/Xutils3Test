@@ -4,35 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.henryzheng.xutils3.MainActivity">
-
+    tools:context="com.example.henryzheng.xutils3.BaseActivity">
     <RelativeLayout
         android:id="@id/rl"
+        android:layout_margin="5dip"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dip">
-
-        <RelativeLayout
-            android:id="@+id/rl"
-            android:layout_width="35dip"
-            android:layout_height="35dip"
-            android:background="@drawable/menu_back_group">
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="19dip"
-                android:layout_height="19dip"
-                android:layout_centerInParent="true"
-                android:background="@drawable/set" />
-        </RelativeLayout>
+        android:layout_height="wrap_content">
 
         <fragment
+            android:layout_centerVertical="true"
             android:id="@+id/fm"
             android:name="com.example.henryzheng.xutils3.NavigationFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/rl" />
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 

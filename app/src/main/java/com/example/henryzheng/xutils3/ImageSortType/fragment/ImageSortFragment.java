@@ -1,17 +1,14 @@
-package com.example.henryzheng.xutils3.ImageSelectType.fragment;
+package com.example.henryzheng.xutils3.ImageSortType.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.henryzheng.xutils3.BaseFragment;
-import com.example.henryzheng.xutils3.ImageSelectType.adapt.ImageSelectTypeAdapt;
+import com.example.henryzheng.xutils3.ImageSortType.adapt.ImageSortTypeAdapt;
 import com.example.henryzheng.xutils3.ImageTypeActivity;
 import com.example.henryzheng.xutils3.Interface.MyItemClickListener;
 import com.example.henryzheng.xutils3.R;
@@ -28,10 +25,10 @@ import java.util.Map;
  * 图片类型选择Fragment
  */
 @ContentView(R.layout.fragment_select_image_type)
-public class SelectImageTypeFragment extends BaseFragment {
+public class ImageSortFragment extends BaseFragment {
     @ViewInject(R.id.recycleView)
     private RecyclerView _recyclerView;
-    private ImageSelectTypeAdapt _adapt;
+    private ImageSortTypeAdapt _adapt;
     private List<Map<String, String>> _list;
     private String[] titles = new String[]{
             "风景",
@@ -57,7 +54,7 @@ public class SelectImageTypeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        _adapt = new ImageSelectTypeAdapt(getActivity(),2);
+        _adapt = new ImageSortTypeAdapt(getActivity(),2);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL);
         _recyclerView.setLayoutManager(manager);
         _recyclerView.setAdapter(_adapt);

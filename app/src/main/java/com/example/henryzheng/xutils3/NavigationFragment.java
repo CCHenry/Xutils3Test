@@ -3,7 +3,6 @@ package com.example.henryzheng.xutils3;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,10 +15,10 @@ import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.fragment_navigation)
 public class NavigationFragment extends BaseFragment {
-    @ViewInject(R.id.rl)
-    RelativeLayout rl;
     @ViewInject(R.id.lin)
-    LinearLayout lin;
+    LinearLayout lin;// 标签的layout
+    @ViewInject(R.id.lin0)
+    LinearLayout lin0;// title的layout
     int titleWidth = 0;
     float instanceX = 0;
     private ViewPager viewPager;
@@ -35,19 +34,28 @@ public class NavigationFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         int width = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int height = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        rl.measure(width, height);
-        height = rl.getMeasuredHeight();
-        width = rl.getMeasuredWidth();
+        lin0.measure(width, height);
+        height = lin0.getMeasuredHeight();
+        width = lin0.getMeasuredWidth();
+
+        lin0.measure(0,0);
+        lin0.getMeasuredWidth();
+
+
         titleWidth = width / 3;
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
         layoutParams.width = titleWidth;
         lin.setLayoutParams(layoutParams);
         final int[] location = new int[2];
-        rl.getLocationOnScreen(location);
+        lin0.getLocationOnScreen(location);
         instanceX = location[0];
         CCLog.print("titleWidth:" + titleWidth + " instanceX:" + instanceX);
     }
 
+    /**
+     * 设置viewpager，监听viewpager，让标识移动
+     * @param viewPager
+     */
     public void setMainPage(ViewPager viewPager) {
         this.viewPager = viewPager;
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

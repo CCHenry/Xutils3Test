@@ -1,4 +1,4 @@
-package com.example.henryzheng.xutils3.ImageSelectType.adapt;
+package com.example.henryzheng.xutils3.ImageSortType.adapt;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,7 +29,7 @@ import java.util.Map;
  * 选择图片类型
  * Created by henryzheng on 2016/9/27.
  */
-public class ImageSelectTypeAdapt extends RecyclerView.Adapter<ImageSelectTypeAdapt.MyViewHolder> {
+public class ImageSortTypeAdapt extends RecyclerView.Adapter<ImageSortTypeAdapt.MyViewHolder> {
     private final ImageOptions _imageOptions;
     Context _context;
 
@@ -38,7 +37,7 @@ public class ImageSelectTypeAdapt extends RecyclerView.Adapter<ImageSelectTypeAd
     LayoutInflater _mLayoutInflater;
     MyItemClickListener myItemClickListener;
     int spanCount=0;
-    public ImageSelectTypeAdapt(Context context,int spanCount) {
+    public ImageSortTypeAdapt(Context context, int spanCount) {
         _context = context;
         _mLayoutInflater = LayoutInflater.from(context);
         dataList=new ArrayList<>();
@@ -72,7 +71,7 @@ public class ImageSelectTypeAdapt extends RecyclerView.Adapter<ImageSelectTypeAd
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        x.image().bind(holder.iv, dataList.get(position).get("url"), _imageOptions, new ImageSelectTypeAdapt.CustomBitmapLoadCallBack(holder));
+        x.image().bind(holder.iv, dataList.get(position).get("url"), _imageOptions, new ImageSortTypeAdapt.CustomBitmapLoadCallBack(holder));
         holder.tv.setText( dataList.get(position).get("title"));
 //        if (holder.iv.getWidth() > holder.iv.getHeight())
         int width = ((BaseActivity) _context).getWidth() /spanCount;

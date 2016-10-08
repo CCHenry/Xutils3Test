@@ -1,5 +1,6 @@
 package com.example.henryzheng.xutils3;
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,53 +8,44 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Display;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 
-import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
 import com.example.henryzheng.xutils3.ImageShowRecycle.RecyclerImageFrament;
-
+import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
 import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
-    @ViewInject(R.id.rl)
-    private RelativeLayout rl;//menu按钮
+@ContentView(R.layout.fragment_main)
+public class MainFragment extends BaseFragment {
     @ViewInject(R.id.mainViewPager)
     private ViewPager mainViewPager;
     @ViewInject(R.id.fm)
     private NavigationFragment navigationFragment;
 
     private List<BaseFragment> _fragments;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Display mDisplay = getWindowManager().getDefaultDisplay();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
         initFragment();
-        mainViewPager.setAdapter(new MainPageAdapt(getSupportFragmentManager(), _fragments));
+        mainViewPager.setAdapter(new MainPageAdapt(getActivity().getSupportFragmentManager(), _fragments));
+
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        NavigationFragment fragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fm);
-        fragment.setMainPage(mainViewPager);
-
+        MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("mainFragment");
+        NavigationFragment navigationFragment= (NavigationFragment) mainFragment.getChildFragmentManager().findFragmentById(R.id.fm);
+        navigationFragment.setMainPage(mainViewPager);
     }
-
 
     private void initFragment() {
         _fragments = new ArrayList<>();
-        _fragments.add(new ImageSortFragment());
         _fragments.add(new RecyclerImageFrament());
         _fragments.add(new ImageSortFragment());
-
+        _fragments.add(new ImageSortFragment());
     }
 
     private class MainPageAdapt extends FragmentPagerAdapter {
@@ -72,15 +64,6 @@ public class MainActivity extends BaseActivity {
         @Override
         public int getCount() {
             return _fragments.size();
-        }
-    }
-
-    @Event(value = {R.id.rl})
-    private void onclick(View view) {
-        switch (view.getId()) {
-            case R.id.rl:
-
-                break;
         }
     }
 }
