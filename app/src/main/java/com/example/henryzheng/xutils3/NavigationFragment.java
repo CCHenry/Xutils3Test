@@ -11,11 +11,12 @@ import android.widget.TextView;
 import com.example.henryzheng.xutils3.common.CCLog;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.fragment_navigation)
 public class NavigationFragment extends BaseFragment {
-    @ViewInject(R.id.lin)
+    @ViewInject(R.id.lin5)
     LinearLayout lin;// 标签的layout
     @ViewInject(R.id.lin0)
     LinearLayout lin0;// title的layout
@@ -37,11 +38,6 @@ public class NavigationFragment extends BaseFragment {
         lin0.measure(width, height);
         height = lin0.getMeasuredHeight();
         width = lin0.getMeasuredWidth();
-
-        lin0.measure(0,0);
-        lin0.getMeasuredWidth();
-
-
         titleWidth = width / 3;
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
         layoutParams.width = titleWidth;
@@ -50,10 +46,12 @@ public class NavigationFragment extends BaseFragment {
         lin0.getLocationOnScreen(location);
         instanceX = location[0];
         CCLog.print("titleWidth:" + titleWidth + " instanceX:" + instanceX);
+
     }
 
     /**
      * 设置viewpager，监听viewpager，让标识移动
+     *
      * @param viewPager
      */
     public void setMainPage(ViewPager viewPager) {
@@ -64,24 +62,33 @@ public class NavigationFragment extends BaseFragment {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                switch (position){
+                switch (position) {
                     case 0:
                         layoutParams.leftMargin = (int) (titleWidth * positionOffset);
                         lin.requestLayout();
                         break;
                     case 1:
-                        layoutParams.leftMargin =titleWidth+ (int) (titleWidth * positionOffset);
+                        layoutParams.leftMargin = titleWidth + (int) (titleWidth * positionOffset);
                         lin.requestLayout();
-
                         break;
                     case 2:
-                        layoutParams.leftMargin =titleWidth*2+ (int) (titleWidth * positionOffset);
+                        layoutParams.leftMargin = titleWidth * 2 + (int) (titleWidth * positionOffset);
                         lin.requestLayout();
-
                         break;
                 }
+                lin.invalidate();
+                CCLog.print("layoutParams.leftMargin:" + layoutParams.leftMargin);
 
-
+//                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
+//                layoutParams.leftMargin = 30 + layoutParams.leftMargin;
+//                lin.requestLayout();
+//                CCLog.print("layoutParams.leftMargin:" + layoutParams.leftMargin);
+//                CCLog.print("position:" + position);
+//                CCLog.print("leftMargin:" + (int) (titleWidth * positionOffset));
+//                CCLog.print("layoutParams.leftMargin:" + layoutParams.leftMargin);
+//                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
+//                layoutParams.leftMargin = 30 + layoutParams.leftMargin;
+//                lin.requestLayout();
             }
 
             @Override
@@ -94,5 +101,17 @@ public class NavigationFragment extends BaseFragment {
 
             }
         });
+
+    }
+
+    @Event(value = R.id.btn)
+    private void onclick(View view) {
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
+        CCLog.print("onclick before layoutParams.leftMargin:" + layoutParams.leftMargin);
+
+        layoutParams.leftMargin = 30 + layoutParams.leftMargin;
+        lin.requestLayout();
+        CCLog.print("onclick after layoutParams.leftMargin:" + layoutParams.leftMargin);
     }
 }
