@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Display;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.henryzheng.xutils3.ImageShowRecycle.RecyclerImageFrament;
 import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
@@ -18,18 +18,15 @@ import java.util.List;
 
 @ContentView(R.layout.fragment_main)
 public class MainFragment extends BaseFragment {
-    @ViewInject(R.id.mainViewPager)
-    private ViewPager mainViewPager;
-    @ViewInject(R.id.fm)
-    private NavigationFragment navigationFragment;
+    @ViewInject(R.id.mainPage)
+    private ViewPager mainPager;
 
     private List<BaseFragment> _fragments;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
         initFragment();
-        mainViewPager.setAdapter(new MainPageAdapt(getActivity().getSupportFragmentManager(), _fragments));
+        mainPager.setAdapter(new MainPageAdapt(getActivity().getSupportFragmentManager(), _fragments));
 
     }
 
@@ -38,13 +35,15 @@ public class MainFragment extends BaseFragment {
         super.onResume();
         MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("mainFragment");
         NavigationFragment navigationFragment= (NavigationFragment) mainFragment.getChildFragmentManager().findFragmentById(R.id.fm);
-        navigationFragment.setMainPage(mainViewPager);
+        navigationFragment.setMainPage(mainPager);
+
     }
 
     private void initFragment() {
         _fragments = new ArrayList<>();
-        _fragments.add(new RecyclerImageFrament());
+//        _fragments.add(new TestFragment());
         _fragments.add(new ImageSortFragment());
+        _fragments.add(new RecyclerImageFrament());
         _fragments.add(new ImageSortFragment());
     }
 

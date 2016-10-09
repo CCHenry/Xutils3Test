@@ -2,6 +2,7 @@ package com.example.henryzheng.xutils3;
 
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ public class NavigationFragment extends BaseFragment {
     @ViewInject(R.id.tv2)
     TextView tv2;
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -49,6 +51,12 @@ public class NavigationFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     /**
      * 设置viewpager，监听viewpager，让标识移动
      *
@@ -58,26 +66,45 @@ public class NavigationFragment extends BaseFragment {
         this.viewPager = viewPager;
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             int position = 0;
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
-
+            Boolean isIni=false;
+            LinearLayout testLin;
+            RelativeLayout.LayoutParams testLayoutParams;
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (!isIni){
+                    isIni=true;
+                    return;
+                }else
+                {
+                    testLin = (LinearLayout) getActivity().findViewById(R.id.lin5);
+                    testLayoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
+                }
                 switch (position) {
                     case 0:
-                        layoutParams.leftMargin = (int) (titleWidth * positionOffset);
-                        lin.requestLayout();
+                        testLayoutParams.leftMargin = (int) (titleWidth * positionOffset);
+                        testLin.setLayoutParams(testLayoutParams);
+                        testLin.requestLayout();
                         break;
                     case 1:
-                        layoutParams.leftMargin = titleWidth + (int) (titleWidth * positionOffset);
-                        lin.requestLayout();
+
+                        testLayoutParams.leftMargin = titleWidth + (int) (titleWidth * positionOffset);
+                        testLin.setLayoutParams(testLayoutParams);
+                        testLin.requestLayout();
                         break;
                     case 2:
-                        layoutParams.leftMargin = titleWidth * 2 + (int) (titleWidth * positionOffset);
-                        lin.requestLayout();
+
+                        testLayoutParams.leftMargin = titleWidth * 2 + (int) (titleWidth * positionOffset);
+                        testLin.setLayoutParams(testLayoutParams);
+                        testLin.requestLayout();
                         break;
                 }
-                lin.invalidate();
-                CCLog.print("layoutParams.leftMargin:" + layoutParams.leftMargin);
+////                lin.invalidate();
+
+
+//                Message message=new Message();
+//                message.what=layoutParams.leftMargin;
+//                getHandler().sendMessage(message);
+                CCLog.print("layoutParams.leftMargin:" + testLayoutParams.leftMargin);
 
 //                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
 //                layoutParams.leftMargin = 30 + layoutParams.leftMargin;
@@ -107,11 +134,18 @@ public class NavigationFragment extends BaseFragment {
     @Event(value = R.id.btn)
     private void onclick(View view) {
 
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) lin.getLayoutParams();
-        CCLog.print("onclick before layoutParams.leftMargin:" + layoutParams.leftMargin);
+//        CCLog.print("onclick before layoutParams.leftMargin:" + layoutParams.leftMargin);
+//        layoutParams.leftMargin = 30 + layoutParams.leftMargin;
+//        lin.requestLayout();
+//        CCLog.print("onclick after layoutParams.leftMargin:" + layoutParams.leftMargin);
+    }
 
-        layoutParams.leftMargin = 30 + layoutParams.leftMargin;
-        lin.requestLayout();
-        CCLog.print("onclick after layoutParams.leftMargin:" + layoutParams.leftMargin);
+    @Override
+    public void OnHandlerListener(Message msg) {
+        super.OnHandlerListener(msg);
+//        CCLog.print("msg after layoutParams.leftMargin:" + layoutParams.leftMargin);
+//
+//        layoutParams.leftMargin = msg.what;
+//        lin.requestLayout();
     }
 }

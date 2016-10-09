@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.henryzheng.xutils3.BaseActivity"
-    android:background="#ee3b82">
+    tools:context="com.example.henryzheng.xutils3.BaseActivity">
     <RelativeLayout
         android:id="@id/rl"
         android:layout_margin="5dip"
@@ -13,17 +12,16 @@
         android:layout_height="wrap_content">
 
         <fragment
+            android:layout_centerVertical="true"
             android:id="@+id/fm"
             android:name="com.example.henryzheng.xutils3.NavigationFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 
     <android.support.v4.view.ViewPager
-        android:background="#201c65"
-        android:id="@+id/mainPager"
+        android:id="@+id/mainPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl"></android.support.v4.view.ViewPager>

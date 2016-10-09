@@ -12,9 +12,9 @@
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="35dip"
-        android:layout_height="35dip"
-        android:background="@drawable/menu_back_group">
-
+        android:layout_height="@dimen/h1"
+        android:background="@drawable/menu_back_group"
+        >
         <Button
             android:id="@+id/btn"
             android:layout_width="19dip"
@@ -22,11 +22,10 @@
             android:layout_centerInParent="true"
             android:background="@drawable/set" />
     </RelativeLayout>
+    <com.example.henryzheng.xutils3.IdentityView.MyViewPage
+    android:id="@+id/mainViewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    ></com.example.henryzheng.xutils3.IdentityView.MyViewPage>
 
-    <android.support.v4.view.ViewPager
-
-        android:id="@+id/mainViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        ></android.support.v4.view.ViewPager>
 </RelativeLayout>

@@ -60,7 +60,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@id/lin"
+            android:id="@id/lin5"
             android:layout_width="30dip"
             android:layout_height="2dip"
             android:background="#00ff00"

@@ -212,7 +212,7 @@ public class BigImageShowActivity extends BaseActivity {
 //    }
 //
     @Override
-    public void OnHandlerListener(Object object) {
+    public void OnHandlerListener(Message object) {
         super.OnHandlerListener(object);
         Message msg = (Message) object;
         if (msg.what == 0) {

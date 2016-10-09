@@ -3,6 +3,7 @@ package com.example.henryzheng.xutils3;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 
@@ -36,7 +37,7 @@ public class BaseActivity extends FragmentActivity implements IHandlerListener {
     }
 
     @Override
-    public void OnHandlerListener(Object object) {
+    public void OnHandlerListener(Message object) {
 
     }
     public Handler getHandler() {
