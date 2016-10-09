@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -41,9 +42,11 @@ public class MainPageActivity extends BaseActivity {
 //        relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 //
 //        Button btn=new Button(this);
-//        btn.setText("asdasdas");
-//        relativeLayout.addView(btn);
-//        rl.addView(relativeLayout);
+//        btn.setBackgroundResource(R.drawable.set);
+//        btn.setLayoutParams(new RelativeLayout.LayoutParams(20,20));
+//        btn.setGravity(View.TEXT_ALIGNMENT_CENTER);
+////        relativeLayout.addView(btn);
+//        rl.addView(btn);
 
     }
 

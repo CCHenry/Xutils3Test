@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.henryzheng.xutils3.MainPageActivity">
-
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="35dip"
@@ -22,6 +21,7 @@
             android:layout_centerInParent="true"
             android:background="@drawable/set" />
     </RelativeLayout>
+
     <com.example.henryzheng.xutils3.IdentityView.MyViewPage
     android:id="@+id/mainViewPager"
     android:layout_width="match_parent"
