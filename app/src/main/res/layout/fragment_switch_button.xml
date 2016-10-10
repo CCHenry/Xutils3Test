@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/menu_back_group"
-    tools:context="com.example.henryzheng.xutils3.test.TestFragment">
-    <Button
+    android:id="@id/rl"
+   >
+    <TextView
+        android:id="@id/btn"
         android:layout_width="19dip"
         android:layout_height="19dip"
         android:background="@drawable/set"

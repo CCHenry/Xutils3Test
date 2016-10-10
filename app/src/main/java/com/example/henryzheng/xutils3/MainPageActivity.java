@@ -6,19 +6,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.henryzheng.xutils3.IdentityView.MyScroll;
 import com.example.henryzheng.xutils3.IdentityView.MyViewPage;
+import com.example.henryzheng.xutils3.IdentityView.SwitchButtonFragment;
 import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
+import com.example.henryzheng.xutils3.common.CCLog;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +30,9 @@ public class MainPageActivity extends BaseActivity {
     @ViewInject(R.id.rl)
     private RelativeLayout rl;
     int viewSwitch=-1;
+    @ViewInject(R.id.switch_fg)
+    private SwitchButtonFragment switchButtonFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class MainPageActivity extends BaseActivity {
         MainPageAdapt mainPageAdapt=new MainPageAdapt(getSupportFragmentManager(), _fragments);
         mainViewPager.setAdapter(mainPageAdapt);
 //        mainViewPager.setNoScroll(true);
-        mainViewPager.setCurrentItem(1);
+        mainViewPager.setCurrentItem(0);
 //        RelativeLayout relativeLayout=new RelativeLayout(this);
 //        relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 //
@@ -47,7 +50,19 @@ public class MainPageActivity extends BaseActivity {
 //        btn.setGravity(View.TEXT_ALIGNMENT_CENTER);
 ////        relativeLayout.addView(btn);
 //        rl.addView(btn);
-
+        switchButtonFragment.setOnSwitchClickListener(new SwitchButtonFragment.OnSwitchClickListner() {
+            int change=-1;
+            @Override
+            public void onClick() {
+                change=-change;
+                if (change==-1)
+                    mainViewPager.setCurrentItem(0);
+                else
+                    mainViewPager.setCurrentItem(1);
+                CCLog.print("change"+change);
+            }
+        });
+//        setViewPagerScrollSpeed(mainViewPager,1300);
     }
 
     private void initFragment() {
@@ -81,8 +96,21 @@ public class MainPageActivity extends BaseActivity {
         public void setScanScroll(boolean isCanScroll) {
             this.isCanScroll = isCanScroll;
         }
+    }
+    private void setViewPagerScrollSpeed(ViewPager viewPager, int i){
+        try {
+            Field mScroller = null;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            MyScroll scroller = new MyScroll( viewPager.getContext( ) );
+            scroller.setmDuration(i);
+            mScroller.set( viewPager, scroller);
+        }catch(NoSuchFieldException e){
 
+        }catch (IllegalArgumentException e){
 
+        }catch (IllegalAccessException e){
 
+        }
     }
 }

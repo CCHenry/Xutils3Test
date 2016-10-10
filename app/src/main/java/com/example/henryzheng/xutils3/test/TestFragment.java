@@ -21,8 +21,7 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.fragment_test)
 public class TestFragment extends BaseFragment {
-@ViewInject(R.id.btn)
-private Button btn;
+
     public TestFragment() {
         // Required empty public constructor
     }
@@ -31,11 +30,4 @@ private Button btn;
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-    }
-    @Event(value = {R.id.btn})
-    private void onClick(View view){
-        RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) btn.getLayoutParams();
-        layoutParams.leftMargin=layoutParams.leftMargin+40;
-        btn.requestLayout();
-//        btn.invalidate();
 }}

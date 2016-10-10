@@ -37,10 +37,7 @@ import java.util.List;
 public class RecyclerImageFrament extends BaseFragment implements MyItemClickListener{
     @ViewInject(R.id.recycleView)
     private RecyclerView recyclerView;
-    @ViewInject(R.id.btn)
-    private Button btn;
-    @ViewInject(R.id.et)
-    private EditText et;
+
     private List<String> mDatas;
     private RecycleImageAdapt recycleAdapter;
     private String[] imgSites = {
@@ -64,7 +61,6 @@ public class RecyclerImageFrament extends BaseFragment implements MyItemClickLis
         recyclerView.setItemAnimator(new DefaultItemAnimator());// 设置增加或删除条目的动画
         imageSiteList = arrToList(imgSites);
 //        loadPicture(imageSiteList);
-        et.setText("风景");
         recycleAdapter.setOnItemClickListener(this);
         recyclerView.addItemDecoration(new RecycleItemDecoration(15));
         List<String> searchUrls = new ArrayList<>();
@@ -83,19 +79,19 @@ public class RecyclerImageFrament extends BaseFragment implements MyItemClickLis
         return lists;
     }
 
-    @Event(value = R.id.btn, type = View.OnClickListener.class)
-    private void search(View view) {
-        String text = et.getText().toString();
-//        recycleAdapter.loadImgList2(getImgSite + text);
-        List<String> searchUrls = new ArrayList<>();
-//        searchUrls.add(searchUrl+text);
-            recycleAdapter.clear();
-//            searchUrls.add("http://image.so.com/i?q="+java.net.URLEncoder.encode(text)+"&src=srp");
-        searchUrls.add("http://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1475142861255_R&pv=&ic=0&nc=1&z=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&word="+java.net.URLEncoder.encode(text));
-
-//        recycleAdapter.clear();
-        loadPicture2(searchUrls);
-    }
+//    @Event(value = R.id.btn, type = View.OnClickListener.class)
+//    private void search(View view) {
+//        String text = et.getText().toString();
+////        recycleAdapter.loadImgList2(getImgSite + text);
+//        List<String> searchUrls = new ArrayList<>();
+////        searchUrls.add(searchUrl+text);
+//            recycleAdapter.clear();
+////            searchUrls.add("http://image.so.com/i?q="+java.net.URLEncoder.encode(text)+"&src=srp");
+//        searchUrls.add("http://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1475142861255_R&pv=&ic=0&nc=1&z=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&word="+java.net.URLEncoder.encode(text));
+//
+////        recycleAdapter.clear();
+//        loadPicture2(searchUrls);
+//    }
 
     private void loadPicture(List<String> sites) {
         for (String imageSite : sites)

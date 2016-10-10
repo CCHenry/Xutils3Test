@@ -5,14 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.henryzheng.xutils3.MainActivity">
 
-    <include
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/custom_search_view"
-        ></include>
+
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/search"
         android:id="@id/recycleView"
         android:dividerHeight="10dp"
         android:layout_width="match_parent"
