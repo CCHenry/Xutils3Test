@@ -17,6 +17,7 @@ import com.example.henryzheng.xutils3.ImageShowRecycle.RecyclerImageFrament;
 import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
 import com.example.henryzheng.xutils3.MyHelp.MyHelp;
 import com.example.henryzheng.xutils3.common.CCLog;
+import com.example.henryzheng.xutils3.model.ImageModel;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -29,6 +30,7 @@ import java.util.List;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 @ContentView(R.layout.fragment_main)
@@ -104,7 +106,19 @@ public class MainFragment extends BaseFragment {
                     public void done(BmobException e) {
 //                        CCLog.print(e.getMessage());
                         CCLog.print(bmobFile.getFileUrl());
-                    }
+                        ImageModel imageModel=new ImageModel();
+                        imageModel.setUsername(getBmobUser().getUsername());
+                        imageModel.setUrl(bmobFile.getFileUrl());
+                        imageModel.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if (e==null)
+                            CCLog.print("cause:"+e.getCause()+",errorcode"+e.getErrorCode());
+                                else
+                                    CCLog.print("submit Success:"+s);
+                            }}
+                        );
+                    };
                 });
             }
 

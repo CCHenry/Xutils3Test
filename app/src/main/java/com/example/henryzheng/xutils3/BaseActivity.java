@@ -9,17 +9,29 @@ import android.view.Display;
 
 import org.xutils.x;
 
+import cn.bmob.v3.BmobUser;
+
 
 /**
  * Created by henryzheng on 2016/9/27.
  */
 public class BaseActivity extends FragmentActivity implements IHandlerListener {
     private Display mDisplay;
+    private static BmobUser bmobUser;
     public Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             OnHandlerListener(msg);
+            bmobUser=MyApplication.mbmobUser;
         }
     };
+
+    public static  BmobUser getBmobUser() {
+        return bmobUser;
+    }
+
+    public static void setBmobUser(BmobUser bmobUser) {
+        BaseActivity.bmobUser = bmobUser;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

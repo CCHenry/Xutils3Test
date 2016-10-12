@@ -45,7 +45,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -329,10 +329,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 public void done(MyUser myUser, BmobException e) {
                     if (myUser!=null){
                         showProgress(false);
-                        BmobUser bu2 = new BmobUser();
-                        bu2.setUsername(mEmail);
-                        bu2.setPassword(mPassword);
-                        bu2.login(new SaveListener<BmobUser>() {
+                        getBmobUser().setUsername(mEmail);
+                        getBmobUser().setPassword(mPassword);
+                        getBmobUser().login(new SaveListener<BmobUser>() {
 
                             @Override
                             public void done(BmobUser bmobUser, BmobException e) {

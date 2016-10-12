@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 
 import org.xutils.x;
 
+import cn.bmob.v3.BmobUser;
+
 /**
  * Created by henryzheng on 2016/9/27.
  */
 public class BaseFragment extends Fragment implements IHandlerListener {
+    private static BmobUser bmobUser;
 
     private boolean injected = false;
     public Handler handler = new Handler() {
@@ -26,7 +29,12 @@ public class BaseFragment extends Fragment implements IHandlerListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         injected = true;
+        bmobUser=MyApplication.mbmobUser;
         return x.view().inject(this, inflater, container);
+    }
+
+    public static  BmobUser getBmobUser() {
+        return bmobUser;
     }
 
     @Override
