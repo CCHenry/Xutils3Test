@@ -69,16 +69,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="登录"
+                android:text="确定注册"
                 android:textStyle="bold" />
-            <Button
-                android:id="@+id/btn1"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="注册"
-                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

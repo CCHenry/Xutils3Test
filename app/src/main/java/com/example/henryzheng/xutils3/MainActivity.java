@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Display;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.henryzheng.xutils3.IdentityView.NavigationFragment;
 import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
 import com.example.henryzheng.xutils3.ImageShowRecycle.RecyclerImageFrament;
 

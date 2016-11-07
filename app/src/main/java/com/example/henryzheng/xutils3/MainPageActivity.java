@@ -39,17 +39,7 @@ public class MainPageActivity extends BaseActivity {
         initFragment();
         MainPageAdapt mainPageAdapt=new MainPageAdapt(getSupportFragmentManager(), _fragments);
         mainViewPager.setAdapter(mainPageAdapt);
-//        mainViewPager.setNoScroll(true);
         mainViewPager.setCurrentItem(0);
-//        RelativeLayout relativeLayout=new RelativeLayout(this);
-//        relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-//
-//        Button btn=new Button(this);
-//        btn.setBackgroundResource(R.drawable.set);
-//        btn.setLayoutParams(new RelativeLayout.LayoutParams(20,20));
-//        btn.setGravity(View.TEXT_ALIGNMENT_CENTER);
-////        relativeLayout.addView(btn);
-//        rl.addView(btn);
         switchButtonFragment.setOnSwitchClickListener(new SwitchButtonFragment.OnSwitchClickListner() {
             int change=-1;
             @Override
@@ -62,9 +52,11 @@ public class MainPageActivity extends BaseActivity {
                 CCLog.print("change"+change);
             }
         });
-//        setViewPagerScrollSpeed(mainViewPager,1300);
     }
 
+    /**
+     * 初始化Fragment
+     */
     private void initFragment() {
         _fragments = new ArrayList<>();
         _fragments.add(new ImageSortFragment());

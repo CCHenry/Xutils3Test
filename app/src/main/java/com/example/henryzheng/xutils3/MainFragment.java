@@ -2,7 +2,6 @@ package com.example.henryzheng.xutils3;
 
 
 import android.content.Intent;
-import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.henryzheng.xutils3.IdentityView.NavigationFragment;
 import com.example.henryzheng.xutils3.ImageShowRecycle.RecyclerImageFrament;
 import com.example.henryzheng.xutils3.ImageSortType.fragment.ImageSortFragment;
 import com.example.henryzheng.xutils3.MyHelp.MyHelp;
@@ -27,7 +26,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;

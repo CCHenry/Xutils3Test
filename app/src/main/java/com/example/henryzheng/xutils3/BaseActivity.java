@@ -1,6 +1,7 @@
 package com.example.henryzheng.xutils3;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ public class BaseActivity extends FragmentActivity implements IHandlerListener {
             bmobUser=MyApplication.mbmobUser;
         }
     };
+    Context context;
 
     public static  BmobUser getBmobUser() {
         return bmobUser;
@@ -38,6 +40,7 @@ public class BaseActivity extends FragmentActivity implements IHandlerListener {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         mDisplay = getWindowManager().getDefaultDisplay();
+        context=this;
     }
 
     public int getWidth() {

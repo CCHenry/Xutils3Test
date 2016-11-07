@@ -18,18 +18,19 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-@ContentView(R.layout.activity_login)
-public class LoginActivity extends BaseActivity {
+@ContentView(R.layout.activity_register)
+public class RegisterActivity extends BaseActivity {
     @ViewInject(R.id.email)
     private AutoCompleteTextView emailET;
     @ViewInject(R.id.password)
     private EditText passwordET;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @Event(value = {R.id.btn0,R.id.btn1}, type = View.OnClickListener.class)
+    @Event(value = {R.id.btn0}, type = View.OnClickListener.class)
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn0:
@@ -43,13 +44,13 @@ public class LoginActivity extends BaseActivity {
                         if (myUser != null) {
                             getBmobUser().setUsername(mEmail);
                             getBmobUser().setPassword(mPassword);
-                            getBmobUser().login(new SaveListener<BmobUser>() {
+                            getBmobUser().signUp(new SaveListener<BmobUser>() {
 
                                 @Override
                                 public void done(BmobUser bmobUser, BmobException e) {
                                     if (e == null) {
                                         CCLog.print("登录成功:");
-                                        startActivity(new Intent(LoginActivity.this, MainPageActivity.class));
+                                        startActivity(new Intent(context, MainPageActivity.class));
                                         //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
                                         //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                                     } else {
@@ -61,8 +62,7 @@ public class LoginActivity extends BaseActivity {
                     }
                 });
                 break;
-            case R.id.btn1:
-                startActivity(new Intent(context,RegisterActivity.class));
+
             default:
                 break;
         }

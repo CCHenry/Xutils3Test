@@ -1,4 +1,4 @@
-package com.example.henryzheng.xutils3;
+package com.example.henryzheng.xutils3.IdentityView;
 
 
 import android.os.Bundle;
@@ -9,12 +9,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.henryzheng.xutils3.BaseFragment;
+import com.example.henryzheng.xutils3.R;
 import com.example.henryzheng.xutils3.common.CCLog;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
+/**
+ * 自定义控件
+ */
 @ContentView(R.layout.fragment_navigation)
 public class NavigationFragment extends BaseFragment {
     @ViewInject(R.id.lin5)

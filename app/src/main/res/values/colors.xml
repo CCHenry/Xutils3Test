@@ -5,4 +5,50 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="gray">#394750</color>
+    <color name="green">#02DF82</color>
+    <color name="cor1">#ffffff</color>
+    <!-- 白色 -->
+    <color name="cor2">#606366</color>
+    <color name="cor_white">#FFFFFF</color>
+    <!-- 灰黑色 -->
+    <color name="cor3">#0fb8d5</color>
+    <!-- 标题 -->
+    <color name="cor4">#dcebf3</color>
+    <color name="cor5">#88ccd8</color>
+    <color name="cor6">#9bb7c6</color>
+    <color name="cor7">#e8e8e8</color>
+    <color name="cor8">#f3f3f3</color>
+    <color name="cor9">#e0e0e0</color>
+    <color name="cor10">#f39c11</color>
+    <color name="cor24">#28ba21</color>
+    <!-- 黄色按钮 -->
+    <color name="cor11">#000000</color>
+    <color name="cor12">#2aa1b2</color>
+    <color name="cor13">#797979</color>
+    <color name="cor14">#303030</color>
+    <!-- 灰黑色 -->
+    <color name="cor15">#fff000</color>
+    <color name="cor_light_black">#4A4A4A</color>
+    <!-- 黄色 -->
+    <color name="cor16">#aeaeae</color>
+    <color name="cor17">#1bff1b</color>
+    <color name="cor18">#05616e</color>
+    <!-- 可编辑界面底色 -->
+    <color name="cor19">#fcf6be</color>
+    <color name="cor_dayoff">#f551ef</color>
+    <color name="cor20">#ee3434</color>
+    <color name="cor21">#9f9114</color>
+    <!-- 不可编辑界面底色 -->
+    <color name="cor22">#eeede8</color>
+    <!-- 详情界面底色 -->
+    <color name="cor23">#f5f9fa</color>
+    <!-- 二维码扫描框颜色 -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <!-- 半透明cor9 -->
+    <color name="cor9_half_transparent">#88e0e0e0</color>
+    <!-- 首页Tab的底色 -->
+    <color name="cor_tab">#fcfcfa</color>
 </resources>

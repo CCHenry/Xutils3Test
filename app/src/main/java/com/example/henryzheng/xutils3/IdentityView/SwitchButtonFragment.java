@@ -33,6 +33,10 @@ public class SwitchButtonFragment extends BaseFragment {
         _switchOnClickListner.onClick();
     }
 
+    /**
+     * 设置按钮监听
+     * @param switchOnClickListner
+     */
     public static void setOnSwitchClickListener(OnSwitchClickListner switchOnClickListner) {
         _switchOnClickListner = switchOnClickListner;
     }

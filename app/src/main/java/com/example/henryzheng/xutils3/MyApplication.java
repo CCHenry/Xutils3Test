@@ -25,6 +25,9 @@ public class MyApplication extends Application {
         Bmob.initialize(this, "e17abe6223cb8a16d02b559e972724f4");
 //        x.Ext.setDebug(BuildConfig.DEBUG); // 开启debug会影响性能
         mTencent = Tencent.createInstance("1105732414", this.getApplicationContext());
-        mbmobUser=new BmobUser();
+        if (BmobUser.getCurrentUser() == null)
+            mbmobUser = new BmobUser();
+        else
+            mbmobUser = BmobUser.getCurrentUser();
     }
 }

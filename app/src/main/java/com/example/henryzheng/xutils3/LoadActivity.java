@@ -15,7 +15,6 @@ public class LoadActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.mbmobUser = BmobUser.getCurrentUser();
 
 
         new Thread(new Runnable() {
@@ -23,7 +22,7 @@ public class LoadActivity extends BaseActivity {
             public void run() {
                 try {
                     Thread.sleep(5000);
-                    if (MyApplication.mbmobUser == null) {
+                    if (MyApplication.mbmobUser.getUsername() == null) {
                         startActivity(new Intent(LoadActivity.this, LoginActivity.class));
                     } else {
                         startActivity(new Intent(LoadActivity.this, MainPageActivity.class));
